@@ -1,0 +1,61 @@
+
+@model Group1Blackboard.Models.Course
+
+@{
+    ViewData["Title"] = "Course Details";
+}
+
+<h2>Course Details</h2>
+
+<div class="card mb-4">
+    <div class="card-header">
+        <h4>@Model.CourseNumber - @Model.CourseName</h4>
+    </div>
+
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-3">Major</dt>
+            <dd class="col-sm-9">@Model.Major?.Name</dd>
+
+            <dt class="col-sm-3">Credits</dt>
+            <dd class="col-sm-9">@Model.Credit</dd>
+
+            <dt class="col-sm-3">Semester</dt>
+            <dd class="col-sm-9">@Model.OfferedSemester</dd>
+
+            <dt class="col-sm-3">Location</dt>
+            <dd class="col-sm-9">@Model.Location</dd>
+
+            <dt class="col-sm-3">Class Times</dt>
+            <dd class="col-sm-9">@Model.Times</dd>
+
+            <dt class="col-sm-3">Instructor</dt>
+            <dd class="col-sm-9">
+                @(Model.Instructor?.Name ?? "Not Assigned")
+            </dd>
+
+            <dt class="col-sm-3">Description</dt>
+            <dd class="col-sm-9">@Model.ShortDescription</dd>
+        </dl>
+    </div>
+</div>
+
+<form asp-controller="CoursePlan"
+      asp-action="Add"
+      method="post"
+      class="mb-3">
+
+    <input type="hidden"
+           name="courseID"
+           value="@Model.CourseID" />
+
+    <button type="submit" class="btn btn-success">
+        Add to Plan
+    </button>
+</form>
+
+<a asp-controller="Course"
+   asp-action="Index"
+   class="btn btn-secondary">
+    Back to Course Catalog
+</a>

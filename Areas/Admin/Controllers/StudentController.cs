@@ -7,9 +7,8 @@ namespace Group1Blackboard.Areas.Admin.Controllers
     {
         public IActionResult Index()
         {
-            return Content(
-                "Area: Admin, Controller: Student, Action: Index"
-            );
+            // Content() is a quick way to test the routing in this phase
+            return Content("Admin area, Student controller, Index action");
         }
     }
 }

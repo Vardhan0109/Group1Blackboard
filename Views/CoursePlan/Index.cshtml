@@ -1,0 +1,103 @@
+
+@model List<Group1Blackboard.Models.Course>
+
+@{
+    ViewData["Title"] = "My Course Plan";
+}
+
+<h2>My Course Plan</h2>
+
+<p>Review the courses you have selected.</p>
+
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">
+        Your course plan is empty.
+    </div>
+
+    <a asp-controller="Course"
+       asp-action="Index"
+       class="btn btn-primary">
+        Browse Courses
+    </a>
+}
+else
+{
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Course Number</th>
+                <th>Course Name</th>
+                <th>Major</th>
+                <th>Semester</th>
+                <th>Credits</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var course in Model)
+            {
+                <tr>
+                    <td>@course.CourseNumber</td>
+                    <td>@course.CourseName</td>
+                    <td>@course.Major?.Name</td>
+                    <td>@course.OfferedSemester</td>
+                    <td>@course.Credit</td>
+                    <td>
+                        
+<form asp-controller="Reservation"
+      asp-action="Reserve"
+      method="post"
+      class="mb-2">
+
+    <input type="hidden"
+           name="courseID"
+           value="@course.CourseID" />
+
+    <button type="submit"
+            class="btn btn-success btn-sm">
+        Reserve
+    </button>
+</form>
+
+                        <form asp-controller="CoursePlan"
+                              asp-action="Remove"
+                              method="post">
+                            <input type="hidden"
+                                   name="courseID"
+                                   value="@course.CourseID" />
+
+                            <button type="submit"
+                                    class="btn btn-danger btn-sm">
+                                Remove
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <form asp-controller="CoursePlan"
+          asp-action="Clear"
+          method="post">
+
+        <button type="submit" class="btn btn-danger">
+            Clear Plan
+        </button>
+
+        <a asp-controller="Course"
+           asp-action="Index"
+           class="btn btn-secondary">
+            Browse More Courses
+        </a>
+    </form>
+}
+
+<a asp-controller="Reservation"
+   asp-action="Index"
+   class="btn btn-outline-primary mt-3">
+    My Reservations
+</a>

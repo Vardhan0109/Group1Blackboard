@@ -1,0 +1,39 @@
+
+@model List<Group1Blackboard.Models.Major>
+
+@{
+    ViewData["Title"] = "Majors";
+}
+
+<h2>Majors</h2>
+
+<a asp-area="Admin" asp-controller="Major" asp-action="Add"
+   class="btn btn-primary mb-3">Add Major</a>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Major ID</th>
+            <th>Name</th>
+            <th>College</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var major in Model)
+        {
+            <tr>
+                <td>@major.MajorID</td>
+                <td>@major.Name</td>
+                <td>@major.College</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@major.MajorID"
+                       class="btn btn-primary btn-sm">Edit</a>
+
+                    <a asp-action="Delete" asp-route-id="@major.MajorID"
+                       class="btn btn-danger btn-sm">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

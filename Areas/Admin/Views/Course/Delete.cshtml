@@ -1,0 +1,25 @@
+
+@model Group1Blackboard.Models.Course
+
+@{
+    ViewData["Title"] = "Delete Course";
+}
+
+<h2>Delete Course</h2>
+
+<p>Are you sure you want to delete this course?</p>
+
+<p><strong>Course Number:</strong> @Model.CourseNumber</p>
+<p><strong>Course Name:</strong> @Model.CourseName</p>
+<p><strong>Major:</strong> @Model.Major?.Name</p>
+
+<form asp-area="Admin" asp-controller="Course"
+      asp-action="DeleteConfirmed" method="post">
+
+    <input type="hidden" name="id" value="@Model.CourseID" />
+
+    <button type="submit" class="btn btn-danger">Delete</button>
+
+    <a asp-area="Admin" asp-controller="Course"
+       asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>

@@ -1,0 +1,33 @@
+
+@model Group1Blackboard.Models.Major
+
+@{
+    ViewData["Title"] = "Edit Major";
+}
+
+<h2>Edit Major</h2>
+
+<form asp-area="Admin" asp-controller="Major"
+      asp-action="Edit" method="post">
+
+    <input type="hidden" asp-for="MajorID" />
+
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <div class="mb-3">
+        <label asp-for="Name" class="form-label"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="College" class="form-label"></label>
+        <input asp-for="College" class="form-control" />
+        <span asp-validation-for="College" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+
+    <a asp-area="Admin" asp-controller="Major"
+       asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>

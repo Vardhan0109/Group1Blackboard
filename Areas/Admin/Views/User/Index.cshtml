@@ -1,0 +1,47 @@
+
+@model List<Group1Blackboard.Models.AppUser>
+
+@{
+    ViewData["Title"] = "User Management";
+}
+
+<h2>User Management</h2>
+
+<a asp-area="Admin" asp-controller="User"
+   asp-action="Add" class="btn btn-primary mb-3">
+    Add User
+</a>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>User ID</th>
+            <th>Name</th>
+            <th>Date of Birth</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.AppUserID</td>
+                <td>@user.Name</td>
+                <td>@user.DOB.ToShortDateString()</td>
+                <td>@user.Email</td>
+                <td>@user.Role</td>
+                <td>
+                    <a asp-action="Edit"
+                       asp-route-id="@user.AppUserID"
+                       class="btn btn-primary btn-sm">Edit</a>
+
+                    <a asp-action="Delete"
+                       asp-route-id="@user.AppUserID"
+                       class="btn btn-danger btn-sm">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

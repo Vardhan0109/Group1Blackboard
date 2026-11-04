@@ -1,0 +1,74 @@
+
+
+@model List<Group1Blackboard.Models.Reservation>
+
+@{
+    ViewData["Title"] = "My Reservations";
+}
+
+<h2>My Reservations</h2>
+
+<p>View and manage your confirmed course reservations.</p>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">
+        You have no confirmed reservations.
+    </div>
+}
+else
+{
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Course Number</th>
+                <th>Course Name</th>
+                <th>Student</th>
+                <th>Reservation Date</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var reservation in Model)
+            {
+                <tr>
+                    <td>@reservation.Course?.CourseNumber</td>
+                    <td>@reservation.Course?.CourseName</td>
+                    <td>@reservation.AppUser?.Name</td>
+                    <td>
+                        @reservation.ReservationDate.ToShortDateString()
+                    </td>
+                    <td>
+                        <form asp-controller="Reservation"
+                              asp-action="Cancel"
+                              method="post">
+
+                            <input type="hidden"
+                                   name="reservationID"
+                                   value="@reservation.ReservationID" />
+
+                            <button type="submit"
+                                    class="btn btn-danger btn-sm">
+                                Cancel Reservation
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<a asp-controller="Course"
+   asp-action="Index"
+   class="btn btn-secondary">
+    Browse Courses
+</a>
+
+<a asp-controller="CoursePlan"
+   asp-action="Index"
+   class="btn btn-outline-primary">
+    My Plan
+</a>
+

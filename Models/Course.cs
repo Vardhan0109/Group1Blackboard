@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Group1Blackboard.Models;
 
+[ModelMetadataType(typeof(CourseFormMetadata))]
 public class Course
 {
     public static List<string> Semesters { get; } = new() { "Spring", "Fall", "Summer" };
@@ -49,9 +50,15 @@ public class Course
     public Major? Major { get; set; }
 
     [Display(Name = "Instructor")]
-    [Required(ErrorMessage = "Please select an instructor.")]
     [Range(1, int.MaxValue, ErrorMessage = "Please select an instructor.")]
     public int? InstructorID { get; set; }
 
     public AppUser? Instructor { get; set; }
+}
+
+// The admin form requires a selection. The database can still contain unassigned courses.
+internal sealed class CourseFormMetadata
+{
+    [Required(ErrorMessage = "Please select an instructor.")]
+    public int? InstructorID { get; set; }
 }
